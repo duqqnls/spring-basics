@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 // @Component("sender") 
 // @Component("sen")
 // @Scope("singleton") // 또는 객체변수를 계속 생성하는 @Scope(prototype) 
-public class Sender {
+
+public class Sender implements SenderInter {
 	public void show() {
 		System.out.println("Sender의 show Method 수행");
 
