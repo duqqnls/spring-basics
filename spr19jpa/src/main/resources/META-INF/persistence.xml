@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="hello"> <!-- DataImpl파일에서 name은 아주 중요함 ! -->
+		<properties>
+			<!-- 필수 속성 -->
+			<property name="javax.persistence.jdbc.driver"
+				value="org.mariadb.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="123" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mariadb://localhost:3306/gooddb" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MariaDBDialect" /> 			<!-- hibernate를 사용하는 장점 중 하나 : Dialect -->
+			<property name="hibernate.connection.pool_size" value="10" />   <!-- 우리는 현재 MARIA-DB와 연동해서 사용하고 있다.  -->
+			<!-- 옵션 -->														<!-- 예: 고객마다 사용하는 DB가 다를 수 있다. (MSDB 등등) -->
+			<property name="hibernate.show_sql" value="true" />				<!-- 고객 요구 사항으로 데이터베이스를 변경할 시 간단하게 Dialect만 변경하면 됌 ! -->
+			<property name="hibernate.use_sql_comments" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
