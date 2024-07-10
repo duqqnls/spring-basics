@@ -1,6 +1,6 @@
 package pack.business;
 
 public interface BusinessInter {
-	void jikwonList();
-	//...
+	void printJikwon();
+	void printJikwonCntByBuser();
 }

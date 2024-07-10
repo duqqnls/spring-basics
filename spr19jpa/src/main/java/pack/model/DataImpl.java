@@ -6,32 +6,60 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
-import org.checkerframework.checker.units.qual.t;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public class DataImpl implements DataInterface{
+public class DataImpl implements DataInterface {
 
-	@Override
-	public List<MemDto> selectDataAll() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello"); // persistence.xml파일의 6라인 name을 적어줌으로, DB연동! 매우 중요 
-		EntityManager em = emf.createEntityManager();	 // 엔티티의 생명주기를 관리. CRUD를 수행
-		EntityTransaction tx = em.getTransaction(); 	 // Transaction을 관리하는 인터페이스 
-		
-		List<MemDto> list = null;
-		
-		System.out.println("*** 전체 자료 읽기 ***");
-		list = findAll(em, MemDto.class);
-		for(MemDto m : list) {
-			System.out.println(m.getNum() + " " + m.getName() + " " + m.getAddr());
-		}
-		
-		return list;
-	}
-	
-	public<T> List<T> findAll(EntityManager em, Class<T> cla) { // 전체 자료를 읽어오기 위한 메서드
-		return em.createQuery("select e from " + cla.getName() + " e", cla).getResultList();
-	}
+    @Override
+    public List<MemDto> selectDataAll() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+        EntityManager em = emf.createEntityManager();
+        
+        List<MemDto> list = null;
+
+        try {
+            System.out.println("*** 부분 자료 읽기 (단일 엔티티) find() 메소드 ***");
+            MemDto mdto = em.find(MemDto.class, 1);
+            if (mdto != null) {
+                System.out.println(mdto.getNum() + " " + mdto.getName() + " " + mdto.getAddr());
+            } else {
+                System.out.println("No entity found for ID 1");
+            }
+
+            System.out.println("*** 부분 자료 읽기 (복수 엔티티) ***");
+            List<MemDto> listPart = findByAddr(em, "강남");
+            for (MemDto m : listPart) {
+                System.out.println(m.getNum() + " " + m.getName() + " " + m.getAddr());
+            }
+
+            System.out.println("*** 전체 자료 읽기 ***");
+            list = em.createQuery("select e from MemDto as e", MemDto.class).getResultList();
+            for (MemDto m : list) {
+                System.out.println(m.getNum() + " " + m.getName() + " " + m.getAddr());
+            }
+
+        } catch (Exception e) {
+            System.out.println("err : " + e);
+        } finally {
+            em.close();
+            emf.close();
+        }
+
+        return list;
+    }
+
+    public List<MemDto> findByAddr(EntityManager em, String ss) {
+        String jpql = "SELECT m FROM MemDto m WHERE m.addr LIKE :ss";
+        
+        TypedQuery<MemDto> query = em.createQuery(jpql, MemDto.class);
+        query.setParameter("ss", ss + "%");
+        return query.getResultList();
+    }
+
+    public<T> List<T> findAll(EntityManager em, Class<T> cla) {
+        return em.createQuery("select e from " + cla.getSimpleName() + " e", cla).getResultList();
+    }
 }
