@@ -8,3 +8,4 @@ import lombok.Setter;
 public class MemberBean {
 	private String num, name, addr;
 }
+ 
