@@ -1,6 +1,7 @@
 package pack.entity;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.hibernate.LazyInitializationException;

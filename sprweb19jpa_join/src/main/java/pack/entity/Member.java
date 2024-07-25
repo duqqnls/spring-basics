@@ -16,6 +16,7 @@ import pack.dto.DeptDto;
 import pack.dto.MemberDto;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

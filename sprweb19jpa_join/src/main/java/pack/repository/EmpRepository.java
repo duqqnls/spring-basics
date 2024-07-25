@@ -11,6 +11,8 @@ import pack.entity.Emp;
 public interface EmpRepository extends JpaRepository<Emp, Integer> {
 	// 사원 번호에 대해 오름차순 정렬된 목록 반환 메소드
 	public List<Emp> findAllByOrderByEmpnoAsc();
+	public List<Emp> findAllByOrderByEmpnoDesc();
+	
 	
 	// findAllByOrderByEmpnoAsc() 메소드를 JPQL로 적는다면, 아래와 같다.
 	@Query(value="select e from Emp e order by e.empno asc")
