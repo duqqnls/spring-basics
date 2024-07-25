@@ -34,7 +34,7 @@ public class Gogek {
     @Column(name="gogek_jumin")
     private String jumin;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="gogek_damsano")
+    @ManyToOne(fetch = FetchType.EAGER) // Gogek에서 Jikwon을 참조한다.
+    @JoinColumn(name="gogek_damsano")	// Gogek의 조인 컬럼명 : gogek_damsano
     private Jikwon jikwon;
 }

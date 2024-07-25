@@ -14,14 +14,14 @@
         <th>부서</th>
         <th>관리고객여부</th>
     </tr>
-    <tr th:each="jikwon:${list}">
-        <td th:text="${jikwon.jno}">jno</td>
+    <tr th:each="jikwon:${list}">   			<!-- jikwon:${list}는 서버에서 모델에 추가한 list라는 이름의 데이터를 반복 처리 -> 리스트는 여러 jikwonDto객체를 포함하고 있다. -->
+        <td th:text="${jikwon.jno}">jno</td> 	<!--  태그안에 텍스트를 서버에서 전달 받은 값에 따라 표현하고자 할 때 사용 -->
         <!-- 사원명 클릭하면 담당 고객 출력하기 -->
-        <th:block>
-        <td  th:if="${jikwon.hasGogek == 'O'}">
-        	<a th:href="@{/mygogek(jno=${jikwon.jno})}" th:text="${jikwon.jname}">jname</a>
+        <th:block>								<!-- 타임리프에서 사용되는 컨테이너 태그, 실제로 렌더링되지 않음. 조건문이나 반복문에 작성 -->
+        <td  th:if="${jikwon.hasGogek == 'O'}"> <!-- 만약, jikwon.hasGogek == 'O'인 경우에만 <td>태그가 렌더링된다. -->
+        	<a th:href="@{/mygogek(jno=${jikwon.jno})}" th:text="${jikwon.jname}">jname</a> <!-- @{/mygogek(jno=${jikwon.jno})}는 타임리프의 URL 표현식으로, jno 값이 jikwon.jno인 URL을 생성 -->
         </td>
-        <td th:unless="${jikwon.hasGogek == 'O'}" th:text="${jikwon.jname}">jname</td>
+        <td th:unless="${jikwon.hasGogek == 'O'}" th:text="${jikwon.jname}">jname</td> <!-- jikwon.hasGogek 값이 'O'가 아닌 경우에만 이 <td> 태그가 렌더링 -->
         </th:block>
         <td th:text="${jikwon.jik}">jik</td>
         <td th:text="${jikwon.bname}">bname</td>

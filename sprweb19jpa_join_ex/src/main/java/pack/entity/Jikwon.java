@@ -33,15 +33,12 @@ public class Jikwon {
 
 	@Column(name = "jikwon_jik")
 	private String jik;
+	
+	@ManyToOne(fetch = FetchType.EAGER) 						// @ManyToOne : 다대일 [N:1] // FetchType.EAGER : 즉시 로딩
+	@JoinColumn(name = "buser_num")								// 외래키 
+	private Buser buser;										// Jikwon에서 Buser을 참조한다.
 
-	@Column(name = "jikwon_pay")
-	private int pay;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "buser_num")
-	private Buser buser;
-
-	@OneToMany(mappedBy = "jikwon", fetch = FetchType.EAGER)
-	private List<Gogek> gogekList;
+	@OneToMany(mappedBy = "jikwon", fetch = FetchType.EAGER)	// @OneToMany : 일대다 [1:N] => Gogek이 연관관계의 주인 
+	private List<Gogek> gogekList;								// 한 명의 직원이 여러명의 고객을 갖고있으므로 직원 리스트에 담아둔다. 
 
 }
