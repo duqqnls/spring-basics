@@ -24,5 +24,4 @@ public class WebController {
 		model.addAttribute("friends", friends);
 		return "list";
 	}
-	
 }
