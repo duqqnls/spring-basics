@@ -3,8 +3,6 @@ package pack;
 import java.security.Key;
 import java.util.Date;
 
-import javax.xml.crypto.Data;
-
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
