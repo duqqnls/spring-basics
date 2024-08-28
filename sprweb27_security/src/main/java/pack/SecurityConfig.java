@@ -20,7 +20,7 @@ public class SecurityConfig { // 기본적인 웹 보안 구성을 설정
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		// HttpSecurity 객체를 사용하여 보안설정 정의
 		http
-			.authorizeHttpRequests(authorizeRequest ->		   // http 요청에 대한 보안 권한 설정 부분
+			.authorizeHttpRequests(authorizeRequest ->	   // http 요청에 대한 보안 권한 설정 부분
 				authorizeRequest
 					.requestMatchers("/login").permitAll() // login 경로는 인증없이 누구든 접근 허용
 					.anyRequest().authenticated() 		   // 나머지 요청은 인증된 경우에 접근 허용 
